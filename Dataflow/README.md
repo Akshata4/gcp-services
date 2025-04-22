@@ -1,4 +1,4 @@
-# CODE
+## Code
 Here’s a minimal Python example that:
 
 Reads the input file
@@ -9,7 +9,7 @@ Filters records where age > 40
 
 Writes the output to a text file
 
-# INPUT FILE
+## Input file
 Each line represents a record (e.g., name, age, country).
 
 ## Summary Table: Key Steps
