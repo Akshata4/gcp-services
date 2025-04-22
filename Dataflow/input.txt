@@ -1,0 +1,4 @@
+alice,30,USA
+bob,45,UK
+carol,25,USA
+dave,50,IN
