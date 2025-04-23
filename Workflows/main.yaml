@@ -4,7 +4,7 @@ main:
     - initialize_variables:
         assign:
           - filename: "input.txt"
-          - fielpath: "gs::test_bucket"
+          - fielpath: "gs://test_bucket"
           - project: "project-name"
 
     - call_cloud_run:
