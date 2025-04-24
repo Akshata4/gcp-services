@@ -1,0 +1,30 @@
+main:
+  params: []
+  steps:
+    - initialize_variables:
+        assign:
+          - filename: "input.txt"
+          - fielpath: "gs://test_bucket"
+          - project: "project-name"
+
+    - call_cloud_run:
+        call: http.post
+        args:
+          url: "https://dummy-cloud-run-url.a.run.app/endpoint"
+          auth:
+            type: OIDC  # Use this if your Cloud Run service requires authentication
+          headers:
+            Content-Type: "application/json"
+          body:
+            filename: ${filename}
+            filepath: ${filepath}
+            project: ${project}
+        result: cloudRunResponse
+
+    - return_response:
+        return:
+          cloudRunResponseBody: ${cloudRunResponse.body}
+          sentVariables:
+            filename: ${filename}
+            filepath: ${filepath}
+            project: ${project}
