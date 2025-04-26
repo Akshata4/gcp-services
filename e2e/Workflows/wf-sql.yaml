@@ -1,0 +1,15 @@
+main:
+  args: [args]
+  steps:
+    - read_from_gcs:
+        call: http.get
+        args:
+          url: ${"https://storage.googleapis.com/download/storage/v1/b/" + args.bucket + "/o/" + args.filename}
+          auth:
+            type: OAuth2
+          query:
+            alt: media
+        result: file_content
+
+    - return_content:
+        return: ${file_content.body}

@@ -1,0 +1,1 @@
+{"query":"insert into `project.dataset.final_table` select * from `project.dataset.raw_table` where amt > 500"}

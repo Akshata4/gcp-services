@@ -4,8 +4,11 @@ main:
     - initialize_variables:
         assign:
           - filename: "input.txt"
-          - fielpath: "gs://test_bucket"
+          - filepath: "test_bucket/data"
           - project: "project-name"
+          - dataset: "dataset-name"
+          - table: "raw_table"
+          - final_table: "final_table"
 
     - call_cloud_run:
         call: http.post
@@ -19,12 +22,27 @@ main:
             filename: ${filename}
             filepath: ${filepath}
             project: ${project}
+            dataset: ${dataset}
+            table: ${table}
         result: cloudRunResponse
+    - call-wf-sql:
+        call: http.post
+        args:
+          url: https://workflowexecutions.googleapis.com/v1/projects/PROJECT_ID/locations/REGION/workflows/wf-sql/executions
+          auth:
+            type: OAuth2
+          body:
+            argument: 
+              bucket - ${bucket}
+              filename - ${filename}
+        result: execution_response
 
-    - return_response:
-        return:
-          cloudRunResponseBody: ${cloudRunResponse.body}
-          sentVariables:
-            filename: ${filename}
-            filepath: ${filepath}
-            project: ${project}
+    # - return_response:
+    #     return:
+    #       cloudRunResponseBody: ${cloudRunResponse.body}
+    #       sentVariables:
+    #         filename: ${filename}
+    #         filepath: ${filepath}
+    #         project: ${project}
+
+
